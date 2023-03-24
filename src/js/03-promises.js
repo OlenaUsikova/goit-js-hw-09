@@ -8,13 +8,14 @@ const numberInp = form.querySelector('amount');
 
 
 
-const delay = delayInp.addEventListener.target.elements.value;
+const delay = Number(delayInp.addEventListener.target.elements.value);
 const step = stepInp.addEventListener.target.elements.value;
 const position = numberInp.addEventListener.target.elements.value;
+console.log(delay)
 
 startBtn.addEventListener('click', foo() )
 
-// newDelay = 0
+newDelay = 0
 function foo(){
   for(let i=1; i <= position; i += 1){
     position = i;
@@ -28,7 +29,8 @@ function foo(){
        reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`))
      }
    }, delay)})}
-     delay = delay + step
+     delay = delay + step;
+    //  console.log(delay)
   }}
 
 function createPromise(position, delay) {
