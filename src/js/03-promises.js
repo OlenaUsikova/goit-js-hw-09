@@ -6,19 +6,41 @@ const delayInp = form.querySelector('delay');
 const stepInp = form.querySelector('step');
 const numberInp = form.querySelector('amount');
 
-let delayN = delayInp.addEventListener.target.elements.value;
-let stepN = stepInp.addEventListener.target.elements.value;
-let amountN = numberInp.addEventListener.target.elements.value;
+
+
+const delay = delayInp.addEventListener.target.elements.value;
+const step = stepInp.addEventListener.target.elements.value;
+const position = numberInp.addEventListener.target.elements.value;
+
+startBtn.addEventListener('click', foo() )
+
+// newDelay = 0
+function foo(){
+  for(let i=1; i <= position; i += 1){
+    position = i;
+    function createPromise(position, delay) {
+      return new Promise((resolve, reject) => {
+       setTimeout(() => {
+     const shouldResolve = Math.random() > 0.3;
+     if (shouldResolve) {
+       resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`))
+     } else {
+       reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`))
+     }
+   }, delay)})}
+     delay = delay + step
+  }}
 
 function createPromise(position, delay) {
-  return (new Promise((resolve, reject)) => {
+   return new Promise((resolve, reject) => {
+    setTimeout(() => {
   const shouldResolve = Math.random() > 0.3;
   if (shouldResolve) {
-    resolve({position, delay})
+    resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`))
   } else {
-    reject({position, delay})
-  }})
-}
+    reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`))
+  }
+}, delay)})}
 
 createPromise(2, 1500)
   .then(({ position, delay }) => {
