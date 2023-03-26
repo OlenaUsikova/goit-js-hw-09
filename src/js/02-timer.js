@@ -15,7 +15,6 @@ startBtn.setAttribute('disabled', true);
 let interval = null;
 let ourDate = 0;
 
-// const fp = flatpickr(inputDate, {});
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -27,7 +26,6 @@ const options = {
     if (selectedDates[0] > new Date()) {
       startBtn.disabled = false;
     } else {
-    //   window.alert('Please choose a date in the future');
       Notify.failure('Please choose a date in the future');
     }
   },
@@ -40,19 +38,14 @@ function addLeadingZero(value) {
 }
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = addLeadingZero(Math.floor((ms % day) / hour));
-  // Remaining minutes
   const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
-  // Remaining seconds
   const seconds = addLeadingZero(
     Math.floor((((ms % day) % hour) % minute) / second)
   );
@@ -72,7 +65,7 @@ startBtn.addEventListener('click', () => {
     const difDates = ourDate - new Date();
     let arrayDays = convertMs(difDates);
     insertDates(arrayDays);
-    console.log(difDates)
+    console.log(difDates);
     if (difDates < 1000) {
       clearInterval(interval);
     }
