@@ -1,53 +1,54 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import Notiflix from 'notiflix';
 
 const form = document.querySelector('form');
-const startBtn = form.querySelector('submit');
-const delayInp = form.querySelector('delay');
-const stepInp = form.querySelector('step');
-const numberInp = form.querySelector('amount');
+const delayInp = form.querySelector('input[name=delay]');
+const stepInp = form.querySelector('input[name=step]');
+const numberInp = form.querySelector('input[name=amount]');
 
+delayInp.addEventListener('input', onDalayInput);
+stepInp.addEventListener('input', onStepInput);
+numberInp.addEventListener('input', onAmountInput);
 
-
-const delay = Number(delayInp.addEventListener.target.elements.value);
-const step = stepInp.addEventListener.target.elements.value;
-const position = numberInp.addEventListener.target.elements.value;
-console.log(delay)
-
-startBtn.addEventListener('click', foo() )
-
-newDelay = 0
-function foo(){
-  for(let i=1; i <= position; i += 1){
-    position = i;
-    function createPromise(position, delay) {
-      return new Promise((resolve, reject) => {
-       setTimeout(() => {
-     const shouldResolve = Math.random() > 0.3;
-     if (shouldResolve) {
-       resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`))
-     } else {
-       reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`))
-     }
-   }, delay)})}
-     delay = delay + step;
-    //  console.log(delay)
-  }}
+let delay = 0;
+function onDalayInput(ev){
+  delay = Number(ev.target.value);
+};
+let step = 0;
+function onStepInput(ev){
+  step = Number(ev.target.value);
+};
+let position = 0;
+function onAmountInput(ev){
+  position = Number(ev.target.value);
+};
 
 function createPromise(position, delay) {
-   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`))
-  } else {
-    reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`))
-  }
+  return new Promise((resolve, reject) => {
+   setTimeout(() => {
+ const shouldResolve = Math.random() > 0.3;
+ if (shouldResolve) {
+   resolve({ position, delay })
+ } else {
+   reject({ position, delay })
+ }
 }, delay)})}
 
-createPromise(2, 1500)
-  .then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-  })
+form.addEventListener('submit', foo)
+
+function foo(ev){
+  ev.preventDefault();
+    for(let i=1; i <= position; i += 1){
+    
+    createPromise(i, delay)
+    .then(({ position, delay }) => {
+      Notiflix.Notify.failure(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    })
+    .catch(({ position, delay }) => {
+      Notiflix.Notify.success(`❌ Rejected promise ${position} in ${delay}ms`);
+    })
+     delay = delay + step;
+     }}
+
+
+
+
