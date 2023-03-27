@@ -8,13 +8,15 @@ function getRandomHexColor() {
 
 function startChangeClr(){
   document.body.style.backgroundColor = getRandomHexColor(); 
-    startBtn.setAttribute('disabled', true)
- }
+    }
 
  function stopChangeClr(){
   clearInterval(timerID);
   startBtn.disabled = false;
  }
 
- startBtn.addEventListener('click', () => timerID = setInterval(startChangeClr, 1000));
- stopBtn.addEventListener('click',stopChangeClr );
+ startBtn.addEventListener('click', () => {
+  startBtn.setAttribute('disabled', true)
+  timerID = setInterval(startChangeClr, 1000)});
+
+ stopBtn.addEventListener('click', stopChangeClr );

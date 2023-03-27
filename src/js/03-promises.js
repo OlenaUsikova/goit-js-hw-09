@@ -24,7 +24,7 @@ function onAmountInput(ev) {
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    const timerId = setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
         resolve({ position, delay });
@@ -53,4 +53,5 @@ function foo(ev) {
       });
     delay = delay + step;
   }
+  form.reset();
 }
